@@ -13,7 +13,6 @@ import { parseString } from './parsestring'
 import { optionsToString } from './optionstostring'
 import { Cache, CacheKeys } from './cache'
 import { Weekday } from './weekday'
-import { DateWithZone } from './datewithzone'
 
 interface GetNlp {
   _nlp: Nlp
@@ -526,7 +525,7 @@ export default class RRule implements QueryMethods {
   }
 
   private rezoneIfNeeded (date: Date) {
-    return new DateWithZone(date, this.options.tzid).rezonedDate()
+    return new Date()
   }
 }
 

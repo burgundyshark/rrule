@@ -9,7 +9,6 @@ import { parseString } from './parsestring';
 import { optionsToString } from './optionstostring';
 import { Cache } from './cache';
 import { Weekday } from './weekday';
-import { DateWithZone } from './datewithzone';
 var getnlp = function () {
     // Lazy, runtime import to avoid circular refs.
     if (!getnlp._nlp) {
@@ -386,7 +385,7 @@ var RRule = /** @class */ (function () {
         return iterResult.getValue();
     };
     RRule.prototype.rezoneIfNeeded = function (date) {
-        return new DateWithZone(date, this.options.tzid).rezonedDate();
+        return new Date();
     };
     // RRule class 'constants'
     RRule.FREQUENCIES = [

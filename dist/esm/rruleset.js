@@ -14,7 +14,6 @@ var __extends = (this && this.__extends) || (function () {
 import RRule from './rrule';
 import dateutil from './dateutil';
 import { includes } from './helpers';
-import { DateWithZone } from './datewithzone';
 var RRuleSet = /** @class */ (function (_super) {
     __extends(RRuleSet, _super);
     /**
@@ -150,7 +149,7 @@ var RRuleSet = /** @class */ (function (_super) {
             });
         }
         this._exdate.forEach(function (date) {
-            var zonedDate = new DateWithZone(date, tzid).rezonedDate();
+            var zonedDate = new Date();
             _exdateHash[Number(zonedDate)] = true;
         });
         iterResult.accept = function (date) {
@@ -176,8 +175,7 @@ var RRuleSet = /** @class */ (function (_super) {
             };
         }
         for (var i = 0; i < this._rdate.length; i++) {
-            var zonedDate = new DateWithZone(this._rdate[i], tzid).rezonedDate();
-            if (!iterResult.accept(new Date(zonedDate.getTime())))
+            if (!iterResult.accept(new Date()))
                 break;
         }
         this._rrule.forEach(function (rrule) {

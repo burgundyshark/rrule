@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("luxon"));
+		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define(["luxon"], factory);
+		define([], factory);
 	else if(typeof exports === 'object')
-		exports["rrule"] = factory(require("luxon"));
+		exports["rrule"] = factory();
 	else
-		root["rrule"] = factory(root["luxon"]);
-})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE__2__) {
+		root["rrule"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -1382,57 +1382,7 @@ function parseWeekday(value) {
     });
 }
 //# sourceMappingURL=parsestring.js.map
-// EXTERNAL MODULE: external "luxon"
-var external_luxon_ = __webpack_require__(2);
-
-// CONCATENATED MODULE: ./dist/esm/datewithzone.js
-
-
-var datewithzone_DateWithZone = /** @class */ (function () {
-    function DateWithZone(date, tzid) {
-        this.date = date;
-        this.tzid = tzid;
-    }
-    Object.defineProperty(DateWithZone.prototype, "isUTC", {
-        get: function () {
-            return !this.tzid || this.tzid.toUpperCase() === 'UTC';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    DateWithZone.prototype.toString = function () {
-        var datestr = esm_dateutil.timeToUntilString(this.date.getTime(), this.isUTC);
-        if (!this.isUTC) {
-            return ";TZID=" + this.tzid + ":" + datestr;
-        }
-        return ":" + datestr;
-    };
-    DateWithZone.prototype.getTime = function () {
-        return this.date.getTime();
-    };
-    DateWithZone.prototype.rezonedDate = function () {
-        if (this.isUTC) {
-            return this.date;
-        }
-        try {
-            var datetime = external_luxon_["DateTime"]
-                .fromJSDate(this.date);
-            var rezoned = datetime.setZone(this.tzid, { keepLocalTime: true });
-            return rezoned.toJSDate();
-        }
-        catch (e) {
-            if (e instanceof TypeError) {
-                console.error('Using TZID without Luxon available is unsupported. Returned times are in UTC, not the requested time zone');
-            }
-            return this.date;
-        }
-    };
-    return DateWithZone;
-}());
-
-//# sourceMappingURL=datewithzone.js.map
 // CONCATENATED MODULE: ./dist/esm/optionstostring.js
-
 
 
 
@@ -1525,7 +1475,7 @@ function buildDtstart(dtstart, tzid) {
     if (!dtstart) {
         return '';
     }
-    return 'DTSTART' + new datewithzone_DateWithZone(new Date(dtstart), tzid).toString();
+    return 'DTSTART' + new Date(dtstart).toString();
 }
 //# sourceMappingURL=optionstostring.js.map
 // CONCATENATED MODULE: ./dist/esm/cache.js
@@ -1626,11 +1576,10 @@ var cache_Cache = /** @class */ (function () {
 
 
 
-
 var getnlp = function () {
     // Lazy, runtime import to avoid circular refs.
     if (!getnlp._nlp) {
-        getnlp._nlp = __webpack_require__(3);
+        getnlp._nlp = __webpack_require__(2);
     }
     return getnlp._nlp;
 };
@@ -2003,7 +1952,7 @@ var rrule_RRule = /** @class */ (function () {
         return iterResult.getValue();
     };
     RRule.prototype.rezoneIfNeeded = function (date) {
-        return new datewithzone_DateWithZone(date, this.options.tzid).rezonedDate();
+        return new Date();
     };
     // RRule class 'constants'
     RRule.FREQUENCIES = [
@@ -2066,7 +2015,6 @@ var rruleset_extends = (undefined && undefined.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-
 
 
 
@@ -2205,7 +2153,7 @@ var rruleset_RRuleSet = /** @class */ (function (_super) {
             });
         }
         this._exdate.forEach(function (date) {
-            var zonedDate = new datewithzone_DateWithZone(date, tzid).rezonedDate();
+            var zonedDate = new Date();
             _exdateHash[Number(zonedDate)] = true;
         });
         iterResult.accept = function (date) {
@@ -2231,8 +2179,7 @@ var rruleset_RRuleSet = /** @class */ (function (_super) {
             };
         }
         for (var i = 0; i < this._rdate.length; i++) {
-            var zonedDate = new datewithzone_DateWithZone(this._rdate[i], tzid).rezonedDate();
-            if (!iterResult.accept(new Date(zonedDate.getTime())))
+            if (!iterResult.accept(new Date()))
                 break;
         }
         this._rrule.forEach(function (rrule) {
@@ -2518,12 +2465,6 @@ function parseRDate(rdateval, parms) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
-
-/***/ }),
-/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2590,7 +2531,7 @@ var ENGLISH = {
 };
 /* harmony default export */ var i18n = (ENGLISH);
 //# sourceMappingURL=i18n.js.map
-// EXTERNAL MODULE: ./dist/esm/index.js + 15 modules
+// EXTERNAL MODULE: ./dist/esm/index.js + 14 modules
 var esm = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./dist/esm/helpers.js
